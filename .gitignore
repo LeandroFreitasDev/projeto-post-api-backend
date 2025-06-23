@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignorar o banco H2 local
+*.mv.db
+*.trace.db
