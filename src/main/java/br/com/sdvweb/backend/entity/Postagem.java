@@ -1,8 +1,8 @@
 package br.com.sdvweb.backend.entity;
 
+
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Objects;
 
 import org.springframework.beans.BeanUtils;
 
@@ -11,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Postagem {
@@ -18,6 +20,7 @@ public class Postagem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private String imagem;
 	private String evento;
 	private LocalDate data;
@@ -25,12 +28,15 @@ public class Postagem {
 	private String local;
 	private String descricao;
 
-	public Postagem(PostagemDTO postagem) {
-		BeanUtils.copyProperties(postagem, this);
+	@ManyToOne
+	@JoinColumn(name = "usuario_id", nullable = false)
+	private User usuario;
 
-	}
+	public Postagem() {}
 
-	public Postagem() {
+	public Postagem(PostagemDTO dto) {
+		BeanUtils.copyProperties(dto, this);
+		// IMPORTANTE: o campo "usuario" deve ser setado manualmente depois
 	}
 
 	public Long getId() {
@@ -89,24 +95,12 @@ public class Postagem {
 		this.descricao = descricao;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(data, descricao, evento, hora, id, imagem, local);
+	public User getUsuario() {
+		return usuario;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Postagem other = (Postagem) obj;
-		return Objects.equals(data, other.data) && Objects.equals(descricao, other.descricao)
-				&& Objects.equals(evento, other.evento) && Objects.equals(hora, other.hora)
-				&& Objects.equals(id, other.id) && Objects.equals(imagem, other.imagem)
-				&& Objects.equals(local, other.local);
+	public void setUsuario(User usuario) {
+		this.usuario = usuario;
 	}
-
+	
 }

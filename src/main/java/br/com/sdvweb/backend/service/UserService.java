@@ -3,6 +3,7 @@ package br.com.sdvweb.backend.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.sdvweb.backend.DTO.UserDTO;
@@ -14,6 +15,11 @@ public class UserService {
 
 	@Autowired
 	public UserRepository userRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	
 
 	public List<UserDTO> listarTodos() {
 		List<User> user = userRepository.findAll();
@@ -22,6 +28,7 @@ public class UserService {
 
 	public void inserir(UserDTO usuario) {
 		User user = new User(usuario);
+		user.setSenha(passwordEncoder.encode(user.getSenha()));
 		userRepository.save(user);
 	}
 

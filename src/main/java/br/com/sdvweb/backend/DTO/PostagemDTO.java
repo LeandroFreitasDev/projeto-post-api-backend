@@ -3,8 +3,6 @@ package br.com.sdvweb.backend.DTO;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import org.springframework.beans.BeanUtils;
-
 import br.com.sdvweb.backend.entity.Postagem;
 
 public class PostagemDTO {
@@ -16,13 +14,20 @@ public class PostagemDTO {
 	private LocalTime hora;
 	private String local;
 	private String descricao;
-
-	public PostagemDTO(Postagem postagem) {
-		BeanUtils.copyProperties(postagem, this);
-	}
+	private Long usuarioId;
 
 	public PostagemDTO() {
-		super();
+	}
+
+	public PostagemDTO(Postagem postagem) {
+		this.id = postagem.getId();
+		this.imagem = postagem.getImagem();
+		this.evento = postagem.getEvento();
+		this.data = postagem.getData();
+		this.hora = postagem.getHora();
+		this.local = postagem.getLocal();
+		this.descricao = postagem.getDescricao();
+		this.usuarioId = postagem.getUsuario().getId();
 	}
 
 	public Long getId() {
@@ -79,6 +84,14 @@ public class PostagemDTO {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Long getUsuarioId() {
+		return usuarioId;
+	}
+
+	public void setUsuarioId(Long usuarioId) {
+		this.usuarioId = usuarioId;
 	}
 
 }
