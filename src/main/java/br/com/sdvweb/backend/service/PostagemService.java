@@ -1,5 +1,6 @@
 package br.com.sdvweb.backend.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,12 @@ public class PostagemService {
 				.orElseThrow(() -> new RuntimeException("Postagem não encontrada com ID: " + id));
 
 		postagemRepository.delete(postagem);
+	}
+	
+	public List<PostagemDTO> buscarPorData(LocalDate data) {
+	    return postagemRepository.findByData(data)
+	        .stream()
+	        .map(PostagemDTO::new)
+	        .toList();
 	}
 }

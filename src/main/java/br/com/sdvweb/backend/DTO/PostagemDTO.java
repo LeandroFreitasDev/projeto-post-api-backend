@@ -8,7 +8,7 @@ import br.com.sdvweb.backend.entity.Postagem;
 public class PostagemDTO {
 
 	private Long id;
-	private String imagem;
+	private byte[] imagem;
 	private String evento;
 	private LocalDate data;
 	private LocalTime hora;
@@ -38,11 +38,11 @@ public class PostagemDTO {
 		this.id = id;
 	}
 
-	public String getImagem() {
+	public byte[] getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(String imagem) {
+	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
 	}
 
@@ -93,5 +93,6 @@ public class PostagemDTO {
 	public void setUsuarioId(Long usuarioId) {
 		this.usuarioId = usuarioId;
 	}
+
 
 }
